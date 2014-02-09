@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Author: Romain Goffe <romain.goffe@gmail.com>
+ Copyright (C) 2010 Romain Goffe <romain.goffe@gmail.com>
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Library General Public
+ License as published by the Free Software Foundation; either
+ version 2 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Library General Public License for more details.
+
+ You should have received a copy of the GNU Library General Public
+ License along with this library; if not, write to the
+ Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ Boston, MA 02111-1307, USA.
+-->
+
+<language id="songbook" _name="Songbook" _section="Sources" version="2.0">
+  <metadata>
+    <property name="mimetypes">text/x-songbook</property>
+    <property name="globs">*.sg</property>
+    <property name="line-comment-start">%</property>
+  </metadata>
+
+  <styles>
+    <style id="keyword"          _name="Keyword"          map-to="def:keyword"/>
+    <style id="comment"          _name="Comment"          map-to="def:comment"/>
+    <style id="chord"            _name="Chord"            map-to="def:identifier"/>
+    <style id="string"           _name="String"           map-to="def:string"/>
+    <style id="environment-name" _name="Environment name" map-to="def:type"/>
+    <style id="tab-delimiter"    _name="Tab delimiter"    map-to="def:keyword"/>
+    <style id="tab-command"      _name="Tab command"      map-to="def:identifier"/>
+  </styles>
+
+  <definitions>
+    <context id="songbook">
+      <include>
+
+        <context id="line-comment" style-ref="comment">
+          <start>%</start>
+          <end>$</end>
+          <include>
+            <context ref="def:line-continue"/>
+            <context ref="def:in-comment"/>
+          </include>
+        </context>
+
+        <context id="chord" style-ref="chord">
+          <start>\\\[</start>
+          <end>\]</end>
+        </context>
+
+        <context id="double-quoted-string" style-ref="string">
+          <start>"|``</start>
+          <end>"|''</end>
+        </context>
+
+        <context id="tab-commands" style-ref="tab-command">
+          <prefix>\\</prefix>
+          <keyword>single</keyword>
+        </context>
+
+        <context id="tab-delimiters" style-ref="tab-delimiter">
+          <prefix>\\</prefix>
+          <keyword>bar</keyword>
+        </context>
+
+        <context id="keywords" style-ref="keyword">
+          <prefix>\\</prefix>
+          <keyword>gtab</keyword>
+          <keyword>echo</keyword>
+          <keyword>rep</keyword>
+          <keyword>lilypond</keyword>
+          <keyword>image</keyword>
+          <keyword>selectlanguage</keyword>
+          <keyword>songcolumns</keyword>
+          <keyword>cover</keyword>      
+          <keyword>capo</keyword>
+          <keyword>nolyrics</keyword>
+          <keyword>musicnote</keyword>
+          <keyword>textnote</keyword>
+          <keyword>dots</keyword>
+          <keyword>emph</keyword>
+          <keyword>Intro</keyword>
+          <keyword>Outro</keyword>
+          <keyword>Chorus</keyword>
+          <keyword>Verse</keyword>
+          <keyword>Rythm</keyword>
+          <keyword>Pattern</keyword>
+          <keyword>Bridge</keyword>
+        </context>
+
+        <context id="environment-names" style-ref="environment-name">
+          <prefix>\\</prefix>
+          <keyword>beginverse</keyword>
+          <keyword>endverse</keyword>
+          <keyword>beginchorus</keyword>
+          <keyword>endchorus</keyword>
+          <keyword>beginsong</keyword>
+          <keyword>endsong</keyword>
+          <keyword>beginscripture</keyword>
+          <keyword>endscripture</keyword>
+          <keyword>begin</keyword>
+          <keyword>end</keyword>
+        </context>
+
+      </include>
+    </context>
+  </definitions>
+</language>
